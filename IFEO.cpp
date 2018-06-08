@@ -52,13 +52,21 @@ void add(string str){
 	system(comm2.c_str());
 };
 void end(bool flag){
+	ofstream fout;
 	if(flag){
-		cout<<"\n\n\n所有操作已经完成！请手动删除掉当前目录下的“gmon.out”文件\n\n";
+		cout<<"\n\n\n所有操作已经完成！\n\n";
 		system("pause");
 	}
 	else{
-		cout<<"\n\n\n操作失败，请手动删除掉当前目录下的“gmon.out”文件\n\n"; 
+		cout<<"\n\n\n操作失败\n\n"; 
 		system("pause");
-	} 
-	system("del gmon.out /s /q");
+	}
+	fout.open("TEMP_RUN.bat");
+	fout<<"timeout 3 & del gmon.out /q /s & del TEMP_RUN.bat & exit /q /s"<<endl;
+//	fout<<"del TEMP_RUN.bat /q /s"<<endl;
+//	fout<<"exit"<<endl;
+	fout.close();
+
+	system("cmd /c start TEMP_RUN.bat");
+//	system("del gmon.out /s /q");
 };
